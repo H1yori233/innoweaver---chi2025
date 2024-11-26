@@ -3,8 +3,8 @@ import os
 import time
 import json
 
-# 连接 Redis，假设 Redis 服务器运行在 localhost 上，默认端口 6379
-redis_client = redis.StrictRedis(host='localhost', port=6379, db=0, decode_responses=True)
+# redis_client = redis.StrictRedis(host='localhost', port=6379, db=0, decode_responses=True)
+redis_client = redis.StrictRedis(host='120.55.193.195', port=6379, db=0, decode_responses=True)
 
 # ----------------------------------------------------------------------------------------
 

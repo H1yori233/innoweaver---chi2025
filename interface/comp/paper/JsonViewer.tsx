@@ -1,64 +1,86 @@
-import React, { useState } from 'react';
-import './JsonViewer.css'
-import Link from 'next/link';
+import React, { useState } from "react";
+import Link from "next/link";
 
-// 节点展示的组件，包含展开/折叠功能
-const JsonNode = ({ keyName, value }) => {
+// 单个节点组件，支持展开/折叠
+const JsonNode = ({ keyName, value }: { keyName: string | number; value: any }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const isExpandable = typeof value === 'object' && value !== null;
+    const isExpandable = typeof value === "object" && value !== null;
 
     const toggleOpen = () => {
         setIsOpen(!isOpen);
     };
 
     return (
-        <div style={{ marginLeft: '20px' }}>
-            <div onClick={isExpandable ? toggleOpen : null} 
-                className={isExpandable ? 'flex items-center cursor-pointer' : 'flex items-center'}
+        <div className="ml-5">
+            {/* 节点标题 */}
+            <div
+                onClick={isExpandable ? toggleOpen : undefined}
+                className={`flex items-center ${isExpandable ? "cursor-pointer" : ""}`}
             >
                 {isExpandable && (
-                    <span className='cursor-pointer mr-1'>{isOpen ? '▼' : '▶'}</span>
+                    <span className="cursor-pointer mr-1 select-none">
+                        {isOpen ? "▼" : "▶"}
+                    </span>
                 )}
-                <div className='font-bold whitespace-nowrap'>{keyName}:</div>
-                {!isExpandable && keyName === '_id' && (
-                    <div className='ml-2'>
-                        <Link href={`/paper/${value}`} target="_blank" rel="noopener noreferrer"
-                            className='no-underline text-[#77EEFF]'>
-                            {`${value}`}
-                        </Link>
-                    </div>
+                <div className="font-bold text-text-primary whitespace-nowrap">{keyName}:</div>
+
+                {/* 链接展示 */}
+                {!isExpandable && keyName === "_id" && (
+                    <Link
+                        href={`/paper/${value}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="ml-2 text-text-link no-underline hover:text-text-linkHover transition-colors duration-200"
+                    >
+                        {value}
+                    </Link>
                 )}
-                {!isExpandable && keyName !== '_id' && (
+
+                {/* 普通值展示 */}
+                {!isExpandable && keyName !== "_id" && (
                     <div className="flex items-center ml-2.5">
-                        <span className="inline-block whitespace-nowrap overflow-hidden text-ellipsis cursor-pointer">
+                        <span className="text-text-secondary inline-block whitespace-nowrap overflow-hidden text-ellipsis cursor-pointer">
                             {value}
                         </span>
                     </div>
                 )}
             </div>
 
+            {/* 子节点渲染 */}
             {isExpandable && isOpen && (
-                <div style={{ marginLeft: '20px' }}>
-                    {Array.isArray(value) ? (
-                        value.map((item, index) => (
+                <div className="ml-5">
+                    {Array.isArray(value)
+                        ? value.map((item, index) => (
                             <JsonNode key={index} keyName={index} value={item} />
                         ))
-                    ) : (
-                        Object.keys(value).map((subKey) => (
+                        : Object.keys(value).map((subKey) => (
                             <JsonNode key={subKey} keyName={subKey} value={value[subKey]} />
-                        ))
-                    )}
+                        ))}
                 </div>
             )}
         </div>
     );
 };
 
-const JsonViewer = ({ jsonData }) => {
-    const orderedKeys = ["_id", "Title", "Author", "Keywords", "Cited", "Liked", "DOI", "Series",
-        "Target Definition", "Artifact Knowledge", "Results", "Second Extraction"];
+// JSON Viewer 主组件
+const JsonViewer = ({ jsonData }: { jsonData: any }) => {
+    const orderedKeys = [
+        "_id",
+        "Title",
+        "Author",
+        "Keywords",
+        "Cited",
+        "Liked",
+        "DOI",
+        "Series",
+        "Target Definition",
+        "Artifact Knowledge",
+        "Results",
+        "Second Extraction",
+    ];
 
-    const renderOrderedJson = (data) => {
+    // 根据优先级排序渲染 JSON 数据
+    const renderOrderedJson = (data: any) => {
         const keys = Object.keys(data);
         const ordered = orderedKeys.filter((key) => keys.includes(key));
         const rest = keys.filter((key) => !orderedKeys.includes(key));
@@ -68,13 +90,14 @@ const JsonViewer = ({ jsonData }) => {
     };
 
     return (
-        <div className='ViewWrapper'>
+        <div
+            className="bg-primary/80 border border-border-secondary p-6 w-full mx-auto rounded-2xl overflow-hidden shadow-primary"
+            style={{ maxWidth: "1000px", height: "200px", fontFamily: "Arial, sans-serif" }}
+        >
             <div
-                style={{
-                    maxHeight: '100%',
-                    overflowY: 'auto',
-                    overflowX: 'hidden',
-                }}
+                className="h-full overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-scrollbar-thumb scrollbar-track-scrollbar-track 
+                    hover:scrollbar-thumb-scrollbar-thumbHover"
+                style={{ overflowX: 'hidden' }}
             >
                 {renderOrderedJson(jsonData)}
             </div>

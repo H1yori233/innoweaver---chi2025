@@ -5,6 +5,7 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import TopBar from '@/comp/TopBar';
+import ThemeScript from "@/comp/ThemeScript";
 import wdyr from '@welldone-software/why-did-you-render';
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -19,13 +20,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
       <head>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
       </head>
       {/* <body className={inter.className}>{children}</body> */}
-      <body>
+      <body className="light">
+        {/* <ThemeScript /> */}
         <TopBar />
         <div>
           {children}

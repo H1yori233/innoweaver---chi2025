@@ -193,18 +193,18 @@ const Gallery = () => {
             </div> */}
 
             {loading && page === 1 ? (
-                <div style={{ fontSize: '24px', marginTop: '100px', textAlign: 'center' }}>
+                <div className="text-2xl mt-24 text-center text-text-secondary">
                     Loading...
                 </div>
             ) : error ? (
-                <div style={{ color: 'red', textAlign: 'center', marginTop: '100px' }}>
+                <div className="text-center mt-24 text-red-500">
                     {error}
                 </div>
             ) : (
                 <div>
                     <MasonryGallery solutions={solutions} likedSolutions={likedSolutions} />
                     {loading && page > 1 && (
-                        <div style={{ textAlign: 'center', marginTop: '1rem' }}>Loading more...</div>
+                        <div className="text-center mt-4 text-text-placeholder">Loading more...</div>
                     )}
                 </div>
             )}

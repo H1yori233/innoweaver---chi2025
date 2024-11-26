@@ -1,21 +1,17 @@
 .top-bar-wrapper {
-    @apply fixed w-[12.5rem] h-screen bg-neutral-900 z-[1000] flex flex-col justify-start items-start text-white shadow-[0_1px_10px_rgba(255,255,255,0.5)] left-0 top-0;
+    @apply fixed w-[12.5rem] h-screen bg-primary z-[1000] flex flex-col justify-start items-start text-text-primary shadow-primary left-0 top-0 transition-colors duration-300;
 }
 
 .user-bar-wrapper {
-    @apply fixed top-0 left-0 w-screen h-12 z-[1000] flex justify-center items-end text-[#FFFFFF];
+    @apply fixed top-0 left-0 w-screen h-12 z-[1000] flex justify-center items-end text-text-primary transition-colors duration-300;
 }
 
 .gallery-container, .flex-container {
     @apply flex flex-col items-start flex-grow w-full mt-4;
 }
 
-.router {
-    @apply w-[90%] flex items-center mb-4 ml-4 text-base font-semibold p-2 rounded-2xl;
-}
-
 .user-type-text {
-    @apply ml-2 text-[#ADD8E6];
+    @apply ml-2 text-text-placeholder transition-colors duration-300;
 }
 
 .avatar {
@@ -23,7 +19,7 @@
 }
 
 .form-wrapper {
-    @apply absolute top-[3.13rem] right-[3.13rem] w-80 p-5 bg-[#1F1F1F] rounded-xl text-sm z-[999];
+    @apply absolute top-[3.13rem] right-[3.13rem] w-80 p-5 bg-secondary rounded-xl text-sm z-[999] shadow-lg transition-colors duration-300;
 }
 
 .form-container, .user-info-container, .api-container {
@@ -31,11 +27,11 @@
 }
 
 .api-input {
-    @apply bg-[#333333] border-[#FFFFFF] border text-[#CCCCCC] p-1 mr-3 mt-1 rounded min-w-[75%];
+    @apply bg-primary border border-border-primary text-text-secondary p-1 mr-3 mt-1 rounded min-w-[75%] transition-colors duration-300;
 }
 
 .api-save-button {
-    @apply bg-[#888888] py-1 px-2 rounded transition-colors duration-300 hover:bg-gray-600;
+    @apply bg-secondary py-1 px-2 rounded transition-colors duration-300 hover:bg-border-secondary text-text-primary font-semibold;
 }
 
 .buttons-container {
@@ -43,5 +39,5 @@
 }
 
 .submit-button {
-    @apply py-1 px-2 rounded cursor-pointer text-base text-gray-100 w-[48%] flex justify-center font-semibold transition-colors duration-300;
+    @apply py-1 px-2 rounded cursor-pointer text-base text-text-primary w-[48%] flex justify-center font-semibold bg-secondary hover:bg-border-secondary transition-colors duration-300;
 }

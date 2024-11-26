@@ -2,7 +2,8 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 
 # 连接 MongoDB
-client = MongoClient('mongodb://localhost:27017/')
+# client = MongoClient('mongodb://localhost:27017/')
+client = MongoClient('mongodb://120.55.193.195:27017/')
 
 # 选择或创建 user_management_db 数据库
 db = client['userDB']

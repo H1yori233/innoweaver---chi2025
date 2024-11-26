@@ -16,6 +16,10 @@ export function GetColor(index: number, scale: number): string {
         '#41656B',
         '#594D78',
     ];
-    const cardColor = tinycolor.mix(colorPalette[index % colorPalette.length], '#000000', scale).toHexString();
+
+    const themeColor = getComputedStyle(document.documentElement)
+    .getPropertyValue('--text-primary')
+    .trim();
+    const cardColor = tinycolor.mix(colorPalette[index % colorPalette.length], themeColor, scale).toHexString();
     return cardColor;
 };

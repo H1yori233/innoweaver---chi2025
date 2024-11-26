@@ -51,26 +51,47 @@ export default function TopBar() {
         }
     }, [authStore.name]);
 
+    const [theme, setTheme] = useState(() => {
+        if (typeof document !== "undefined") {
+            return document.body.className || "light";
+        }
+        return "light";
+    });
+
+    const toggleTheme = () => {
+        const newTheme = theme === "light" ? "dark" : "light";
+        setTheme(newTheme);
+        document.body.className = newTheme;
+        const event = new CustomEvent("themeChange", { detail: newTheme });
+        window.dispatchEvent(event);
+    };
+
+
     return (
         <>
-            <div className="top-bar-wrapper">
-                <h1 className="text-2xl font-bold ml-5" style={{ marginTop: '3rem' }}> InnoWeaver </h1>
-                <hr style={{ width: '80%', marginLeft: '1rem', marginTop: '0.3rem' }} />
+            <div className="top-bar-wrapper pl-4" >
+                <div className='mt-4 w-full'>
+                    <h1 className="text-2xl font-bold mt-8 ml-2"> InnoWeaver </h1>
+                    <hr style={{ width: '80%' }} className='border-border-line mt-1 ml-2' />
+                </div>
 
-                <div className="flex flex-col items-start flex-grow w-full mt-4">
-                    <Link className="router" href="/">
+                <div className="flex flex-col items-start flex-grow w-full mt-4 font-semibold text-base">
+                    <Link className="w-full flex items-center mb-4 p-2 rounded-2xl 
+                        text-text-primary transition-colors duration-300 hover:bg-secondary" href="/">
                         <FaCommentAlt className='text-lg' />
                         <div className='ml-3'>
                             Chat
                         </div>
                     </Link>
-                    <Link className="router" href="/gallery">
+                    <Link className="w-full flex items-center mb-4 p-2 rounded-2xl 
+                        text-text-primary transition-colors duration-300 hover:bg-secondary" href="/gallery">
                         <FaImages className='text-lg' />
                         <div className='ml-3'>
                             Gallery
                         </div>
                     </Link>
-                    <Link className="router" href="/paper">
+                    <Link className="w-full flex items-center mb-4 p-2 rounded-2xl 
+                        text-text-primary transition-colors duration-300 hover:bg-secondary" href="/paper">
                         <FaFileAlt className='text-lg' />
                         <div className='ml-3'>
                             Papers
@@ -78,38 +99,51 @@ export default function TopBar() {
                     </Link>
                 </div>
 
-                <div className="flex flex-col items-start flex-grow w-full" style={{ marginTop: '30rem' }}>
-                    <>
-                        <Link className="router" href="/user/history">
-                            <FaHistory className='text-lg' />
-                            <div className='ml-3'>
-                                History
-                            </div>
-                        </Link>
-                        <Link className="router" href="/user/favlist">
-                            <FaStar className='text-lg' />
-                            <div className='ml-3'>
-                                Favorite
-                            </div>
-                        </Link>
-                    </>
+                <div className="flex flex-col justify-end items-end h-full w-full font-semibold text-base">
+                    <Link className="w-full flex items-center mb-4 p-2 rounded-2xl 
+                            text-text-primary transition-colors duration-300 hover:bg-secondary" href="/user/history">
+                        <FaHistory className='text-lg' />
+                        <div className='ml-3'>
+                            History
+                        </div>
+                    </Link>
+                    <Link className="w-full flex items-center mb-4 p-2 rounded-2xl 
+                            text-text-primary transition-colors duration-300 hover:bg-secondary" href="/user/favlist">
+                        <FaStar className='text-lg' />
+                        <div className='ml-3'>
+                            Favorite
+                        </div>
+                    </Link>
+                    <button
+                        onClick={toggleTheme}
+                        className="relative flex items-center p-2 mb-3 text-2xl rounded-full bg-secondary transition-colors duration-300"
+                        style={{ width: '8rem' }}
+                    >
+                        <div
+                            className="absolute bg-primary rounded-full shadow-md"
+                            style={{
+                                width: '2.5rem',
+                                height: '2.5rem',
+                                transform: theme === "dark" ? "translateX(0)" : "translateX(4.5rem)",
+                                transition: "transform 0.3s ease, background-color 0.3s ease",
+                            }}
+                        ></div>
+                        <div className="flex justify-between w-full px-2">
+                            <span>☀️</span>
+                            <span>🌙</span>
+                        </div>
+                    </button>
                 </div>
 
                 <FeedbackFish projectId="99f3739e6a24ef" userId={authStore.email}>
-                    <button className='ml-6 mb-3 font-semibold' style={{ color: '#00FFFF' }}>
+                    <button className='ml-6 mb-6 font-semibold' style={{ color: '#00FFFF' }}>
                         反馈
                     </button>
                 </FeedbackFish>
             </div>
 
             <div className="user-bar-wrapper">
-                <div style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'flex-end',
-                    width: '100%',
-                }}>
-                    {/* <div className='flex flex-col items-end w-full'> */}
+                <div className='flex flex-col w-full' style={{ alignItems: "flex-end" }}>
                     <button className="avatar" onClick={toggleForm}>
                         {initials || 'DI'}
                     </button>

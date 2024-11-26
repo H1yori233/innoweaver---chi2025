@@ -7,7 +7,8 @@ import { FaSearch, FaUpload } from 'react-icons/fa';
 import Link from 'next/link';
 
 const Papers = () => {
-    const apiUrl = process.env.API_URL.replace(':5000', ':7700/');
+    // const apiUrl = process.env.API_URL.replace(':5000', ':7700/');
+    const apiUrl = '120.55.193.195:7700/';
     const [loading, setLoading] = useState(true);
     const [papers, setPapers] = useState([]);
     const [error, setError] = useState(null);
@@ -67,24 +68,22 @@ const Papers = () => {
     return (
         <div
             ref={scrollContainerRef}
-            style={{ height: '100vh', overflowY: 'auto', marginLeft: '15rem' }}
+            className="h-screen overflow-y-auto ml-[12.5rem] bg-primary text-text-primary"
         >
             <div className="flex flex-col items-center mt-8">
                 <header className="mb-6 w-full flex items-center justify-center px-6 max-w-5xl">
-                    {/* 上传按钮 */}
                     {/* <Link href="/paper/upload" passHref>
                         <div
                             role="button"
-                            className="mr-4 p-2 bg-blue-600 text-white rounded-full hover:bg-blue-500 transition-colors duration-200 cursor-pointer flex items-center"
+                            className="mr-4 p-2 bg-secondary text-text-primary rounded-full hover:bg-secondary transition-colors duration-300 cursor-pointer flex items-center"
                         >
                             <FaUpload size={20} />
                         </div>
                     </Link> */}
 
-                    {/* 搜索栏 */}
                     <form onSubmit={handleSearch} className="flex justify-center flex-grow max-w-3xl">
                         <div className="relative w-full">
-                            <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-neutral-400">
+                            <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-text-placeholder">
                                 <FaSearch />
                             </span>
                             <input
@@ -92,7 +91,7 @@ const Papers = () => {
                                 value={query}
                                 onChange={(e) => setQuery(e.target.value)}
                                 placeholder="Search papers by keyword"
-                                className="w-full pl-12 pr-4 py-3 text-lg border border-neutral-700 rounded-lg bg-neutral-800 text-neutral-100 outline-none shadow focus:ring focus:ring-neutral-700 focus:border-neutral-500 transition-all duration-300"
+                                className="w-full pl-12 pr-4 py-3 text-lg border border-border-primary rounded-lg bg-primary text-text-primary outline-none shadow focus:ring focus:ring-border-secondary focus:border-border-secondary transition-all duration-300"
                             />
                         </div>
                     </form>
@@ -100,24 +99,26 @@ const Papers = () => {
             </div>
 
             {loading && page === 1 ? (
-                <div style={{ fontSize: '24px', marginTop: '100px', textAlign: 'center' }}>
+                <div className="text-lg mt-24 text-center text-text-secondary">
                     Loading...
                 </div>
             ) : error ? (
-                <div style={{ color: 'red', textAlign: 'center', marginTop: '100px' }}>
+                <div className="text-center mt-24 text-red-500">
                     {error}
                 </div>
             ) : (
                 <div>
-                    <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
+                    <ul className="list-none p-0">
                         {papers.map((paper, index) => (
-                            <li key={index} style={{ marginBottom: '0.5rem' }}>
+                            <li key={index} className="mb-2">
                                 <JsonViewer jsonData={paper} />
                             </li>
                         ))}
                     </ul>
                     {loading && page > 1 && (
-                        <div style={{ textAlign: 'center', marginTop: '1rem' }}>Loading more...</div>
+                        <div className="text-center mt-4 text-text-secondary">
+                            Loading more...
+                        </div>
                     )}
                 </div>
             )}

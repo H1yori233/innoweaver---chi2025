@@ -33,7 +33,7 @@ const MiniCard = React.memo(function MiniCard(props: { content: any, index: numb
                 rel="noopener noreferrer"
                 className="card"
                 style={{
-                    backgroundColor: GetColor(props.index, 0),
+                    backgroundColor: GetColor(props.index, 50),
                 }}
             >
                 <img src={props.content.solution?.image_url} alt="Card Image" />

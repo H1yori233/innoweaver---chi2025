@@ -18,28 +18,30 @@ export default function Login() {
   }, [email, password, router]);
 
   return (
-    <div className='user_container'>
-      <h2>登录</h2>
-      <div className='input_field_container'>
+    <div className="flex flex-col justify-center items-center h-screen bg-primary font-sans text-text-primary">
+      <h2 className="text-xl font-bold">登录</h2>
+      <div className="flex flex-col gap-3 w-[300px] mt-2">
         <input
-          className='input_field'
+          className="p-3 text-base border border-border-secondary rounded-md text-text-secondary bg-primary outline-none focus:ring-2 focus:ring-border-secondary transition-all"
           type="email"
           placeholder="邮箱"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
-          className='input_field'
+          className="p-3 text-base border border-border-secondary rounded-md text-text-secondary bg-primary outline-none focus:ring-2 focus:ring-border-secondary transition-all"
           type="password"
           placeholder="密码"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button className='user_type_button' onClick={handleLogin}>
+        <button
+          className="bg-secondary text-text-primary rounded-md py-2 px-4 transition-colors duration-300 hover:bg-border-secondary"
+          onClick={handleLogin}
+        >
           登录
         </button>
       </div>
-
     </div>
   );
 }

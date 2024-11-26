@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { fetchLoadLikedSolutions } from "@/lib/actions";
+import { fetchGallery } from '@/lib/actions';
 import GalleryPage from '@/comp/solution/GalleryPage';
 
-const FavList = () => {
+const Gallery = () => {
     const [id, setId] = useState('');
 
     useEffect(() => {
@@ -15,10 +15,10 @@ const FavList = () => {
     }, []);
 
     return (
-        <div className="flex justify-center bg-primary text-text-primary font-sans min-h-full">
-            <GalleryPage title="My Favorite" fetchData={fetchLoadLikedSolutions} />
+        <div className='flex justify-center bg-neutral-900 text-white min-h-full'>
+            <GalleryPage title="Gallery" fetchData={fetchGallery} />
         </div>
     );
 };
 
-export default FavList;
+export default Gallery;

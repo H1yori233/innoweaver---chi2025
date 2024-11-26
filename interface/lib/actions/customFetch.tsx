@@ -16,6 +16,7 @@ export async function customFetch(url, options = {}) {
         // ...options.headers,
     };
 
+    console.log(`${apiUrl}${url}`);
     const response = await fetch(`${apiUrl}${url}`, {
         ...options,
         headers,

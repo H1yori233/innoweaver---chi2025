@@ -269,14 +269,10 @@ user_type_button:hover {
 .user_history_container {
   display: flex;
   justify-content: center;
-  /* flex-direction: column; */
-  /* align-items: center; */
-  /* height: 100vh; */
   background-color: #171717;
   font-family: 'Inter', sans-serif;
   color: #FFFFFF;
   min-height: 100%;
-  /* margin-bottom: 0; */
 }
 
 .user_history_content_container {
