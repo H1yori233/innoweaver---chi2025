@@ -74,7 +74,10 @@ const SearchBar = ({handleSearch,query,setQuery})=>{
 
 const Gallery = () => {
     // 获取环境变量中的 API 地址，并替换端口号
-    const apiUrl = process.env.API_URL.replace(':5000', ':7700/');
+    // const apiUrl = process.env.API_URL.replace(':5000', ':7700/');
+    const apiUrl = '120.55.193.195:7700/';
+
+    console.log(apiUrl)
     // 定义组件的状态
     const [loading, setLoading] = useState(true);//是否加载
     const [solutions, setSolutions] = useState([]);//已加载的解决方案
@@ -96,12 +99,15 @@ const Gallery = () => {
             // const keywords = searchQuery.trim().split(/\s+/);
 
             // await index.updateSortableAttributes(['timestamp']);
-            //执行搜索查询
+            // console.log("执行搜索查询")
+            console.log(searchQuery)
             const searchResults = await index.search(searchQuery, {
                 limit: 10,//每页加载十条
                 offset: (pageNumber - 1) * 10,//分页偏移量
                 sort: ['timestamp:desc'],//按时间戳降序排序
             });
+            // console.log("搜索查询结束")
+
             if (searchResults.hits.length > 0) {
                 //处理搜索结果，修改id的命名方式
                 const modifiedResults = searchResults.hits.map((hit) => ({
@@ -110,6 +116,7 @@ const Gallery = () => {
                     _id: undefined,//删除原始_id字段
                 }));
                 //更新solution状态，根据页码决定覆盖还是追加
+         //-------------------------------------------------将新搜索的页面进行追加的逻辑-------------------------------//
                 setSolutions((prevPapers) => (pageNumber === 1 ? modifiedResults : [...prevPapers, ...modifiedResults]));
                 
                 //获取解决方案的点赞状态
@@ -129,6 +136,7 @@ const Gallery = () => {
 
                 setHasMore(true);//标记还有更多数据
             } else {
+                console.log("None is display")
                 setHasMore(false);//如果返回结果的长队为0，没有更多数据了
             }
         } catch (error) {
@@ -149,7 +157,11 @@ const Gallery = () => {
         setSolutions([]);
         fetchSolutions(query, 1);
     };
+
+
     //监听滚动时间，实现滚动加载
+    //要将滚动监听转化为分页模式，在底部添加一个分页的组件
+//--------------------------------------处理滚动下滑刷新的函数---------------------------------------------//    
     useEffect(() => {
         const handleScroll = () => {
             if (scrollContainerRef.current) {
@@ -165,6 +177,7 @@ const Gallery = () => {
         container?.addEventListener('scroll', handleScroll);//绑定滚动事件
         return () => container?.removeEventListener('scroll', handleScroll);//清理事件
     }, [loading, hasMore]);
+//-------------------------------------------------------------------------------------------------------//
 
     return (
         <div
