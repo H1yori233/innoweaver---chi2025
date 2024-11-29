@@ -1,5 +1,5 @@
 "use client";
-
+//该文件已经添加响应式设计
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
@@ -92,14 +92,14 @@ const SolutionCard = () => {
     };
 
     return (
-        <div className="flex flex-col ml-[12.5rem] bg-primary min-h-screen p-6">
-            <div className="w-full max-w-[80%] mx-auto">
+        <div className="flex flex-col ml-[12.5rem] bg-primary min-h-screen p-4 md:p-6">
+            <div className="w-full max-w-[90%] lg:max-w-[80%] mx-auto">
                 <div className="flex justify-between items-center mb-4">
-                    <h1 className="text-xl font-bold text-text-primary">
+                    <h1 className="text-lg md:text-xl font-bold text-text-primary">
                         {solution?.['solution']?.Title || 'Loading...'}
                     </h1>
                     <button
-                        className={`text-3xl ml-3 p-[0.2rem] transition-transform duration-200 ease-in-out
+                        className={`text-2xl md:text-3xl ml-3 p-[0.2rem] transition-transform duration-200 ease-in-out
                             hover:scale-110 active:scale-100 cursor-pointer`}
                         style={{
                             color: isLiked ? '#ff6961' : '#BBBBBB',
@@ -112,19 +112,19 @@ const SolutionCard = () => {
                 </div>
 
                 <div className="flex flex-col md:flex-row">
-                    <div className="flex flex-col md:w-1/3 mr-4">
+                    <div className="flex flex-col md:w-1/3 md:mr-6">
                         {solution?.['solution']?.['image_url'] && (
                             <div className="flex justify-center mb-6">
                                 <img
                                     src={solution?.['solution']?.['image_url']}
                                     alt="solution"
-                                    className="rounded-lg max-w-full max-h-[400px] object-cover"
+                                    className="rounded-lg w-full max-h-[300px] md:max-h-[400px] object-cover"
                                 />
                             </div>
                         )}
 
                         <div className="bg-secondary p-4 rounded-lg mt-6">
-                            <h2 className="text-lg font-semibold text-text-primary">Score</h2>
+                            <h2 className="text-base md:text-lg font-semibold text-text-primary">Score</h2>
                             <div className="bg-border-primary h-2 mt-2 rounded">
                                 <div
                                     className="bg-yellow-500 h-full rounded"
@@ -134,43 +134,43 @@ const SolutionCard = () => {
                                     }}
                                 ></div>
                             </div>
-                            <p className="text-sm mt-2 text-text-secondary">
+                            <p className="text-sm md:text-base mt-2 text-text-secondary">
                                 Score: {solution?.['solution']?.['Evaluation_Result']?.['score'] || 'N/A'} / 7
                             </p>
                         </div>
                     </div>
 
-                    <div className="flex flex-col md:w-2/3 bg-secondary p-6 rounded-lg shadow-lg mt-6 md:mt-0 space-y-4">
+                    <div className="flex flex-col md:w-2/3 bg-secondary p-4 md:p-6 rounded-lg shadow-lg mt-6 md:mt-0 space-y-4">
                         <div>
-                            <h2 className="text-lg font-semibold text-text-primary mb-2">Query</h2>
-                            <p className="text-sm text-text-secondary">{solution?.['query'] || 'Loading...'}</p>
+                            <h2 className="text-base md:text-lg font-semibold text-text-primary mb-2">Query</h2>
+                            <p className="text-sm md:text-base text-text-secondary">{solution?.['query'] || 'Loading...'}</p>
                         </div>
 
                         <div>
-                            <h2 className="text-lg font-semibold text-text-primary mb-2">Function</h2>
-                            <p className="text-sm text-text-secondary">{solution?.['solution']?.['Function'] || 'Loading...'}</p>
+                            <h2 className="text-base md:text-lg font-semibold text-text-primary mb-2">Function</h2>
+                            <p className="text-sm md:text-base text-text-secondary">{solution?.['solution']?.['Function'] || 'Loading...'}</p>
                         </div>
 
                         <div>
-                            <h2 className="text-lg font-semibold text-text-primary mb-2">Use Case</h2>
-                            <p className="text-sm text-text-secondary">{solution?.['solution']?.['Use Case'] || 'Loading...'}</p>
+                            <h2 className="text-base md:text-lg font-semibold text-text-primary mb-2">Use Case</h2>
+                            <p className="text-sm md:text-base text-text-secondary">{solution?.['solution']?.['Use Case'] || 'Loading...'}</p>
                         </div>
 
                         <div>
-                            <h2 className="text-lg font-semibold text-text-primary mt-4 mb-2">User</h2>
-                            <p className="text-sm text-text-secondary">
+                            <h2 className="text-base md:text-lg font-semibold text-text-primary mt-4 mb-2">User</h2>
+                            <p className="text-sm md:text-base text-text-secondary">
                                 User: {solution?.['user_id'] || 'loading...'}
                             </p>
                         </div>
                     </div>
                 </div>
 
-                <div className="bg-secondary p-6 rounded-lg shadow-lg mt-4">
-                    <h2 className="text-lg font-semibold text-text-primary mb-4">Cited Papers</h2>
+                <div className="bg-secondary p-4 md:p-6 rounded-lg shadow-lg mt-4">
+                    <h2 className="text-base md:text-lg font-semibold text-text-primary mb-4">Cited Papers</h2>
                     {loading ? (
                         <div className="text-text-secondary">Loading Cited Papers...</div>
                     ) : citedPapersDetails.length > 0 ? (
-                        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
+                        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                             {citedPapersDetails.map((paperDetail, index) => (
                                 <li key={index} className="text-blue-400 hover:underline">
                                     <Link href={`/paper/${paperDetail['_id']}`} target="_blank" rel="noopener noreferrer">
