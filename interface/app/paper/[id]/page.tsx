@@ -1,5 +1,5 @@
 "use client";
-
+//该文件已经添加响应式设计
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { useParams } from "next/navigation";
 import { MeiliSearch } from "meilisearch";
@@ -7,11 +7,11 @@ import Link from "next/link";
 
 const Metadata = ({ data }) => {
     return (
-        <div className="bg-primary p-6 rounded-lg shadow-lg mb-6">
-            <h2 className="text-lg font-semibold text-text-primary mb-4">
+        <div className="bg-primary p-4 md:p-6 rounded-lg shadow-lg mb-6">
+            <h2 className="text-base md:text-lg font-semibold text-text-primary mb-4">
                 {data["Title"] ? data["Title"] : "Paper Information"}
             </h2>
-            <div className="text-text-secondary space-y-2">
+            <div className="text-sm md:text-base text-text-secondary space-y-2">
                 {data["Author"] && (
                     <p>
                         <strong>Author:</strong> {data["Author"]}
@@ -113,7 +113,7 @@ const Paper = () => {
         };
 
         return (
-            <div className="flex flex-col mt-3 text-text-secondary">
+            <div className="flex flex-col mt-3 text-sm md:text-base text-text-secondary">
                 <div className="flex items-start">
                     {displayKey && <strong className="whitespace-nowrap mr-2">{displayKey}</strong>}
                     {!isExpandable && renderValue()}
@@ -140,8 +140,8 @@ const Paper = () => {
         const keys = Object.keys(data);
         const ordered = orderedKeys.filter((key) => keys.includes(key));
         return ordered.map((key) => (
-            <div key={key} className="bg-primary p-6 mb-6 rounded-lg shadow-lg">
-                <h2 className="text-lg font-semibold text-text-primary mb-4 border-b border-border-secondary pb-2">
+            <div key={key} className="bg-primary p-4 md:p-6 mb-6 rounded-lg shadow-lg">
+                <h2 className="text-base md:text-lg font-semibold text-text-primary mb-4 border-b border-border-secondary pb-2">
                     {key.replace(/_/g, " ")}
                 </h2>
                 <JsonNode keyName={key} value={data[key]} />
@@ -151,7 +151,7 @@ const Paper = () => {
 
     return (
         <div className="flex bg-secondary text-text-primary min-h-screen pl-[12.5rem]">
-            <div className="w-full max-w-[80%] mx-auto py-10 overflow-y-auto">
+            <div className="w-full max-w-full md:max-w-[90%] lg:max-w-[80%] mx-auto py-6 md:py-10 overflow-y-auto">
                 <Metadata data={paper} />
                 {renderOrderedJson(paper)}
             </div>
